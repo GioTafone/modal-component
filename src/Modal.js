@@ -1,18 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './Modal.css';
 
 const Modal = ({ isOpen, onClose, children }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    setIsModalOpen(isOpen);
-  }, [isOpen]);
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    onClose();
-  };
-
   useEffect(() => {
     document.addEventListener('keydown', handleEscapeKey);
 
@@ -33,10 +22,12 @@ const Modal = ({ isOpen, onClose, children }) => {
     }
   };
 
-  console.log(isModalOpen);
+  const closeModal = () => {
+    onClose();
+  };
 
   return (
-    isModalOpen && (
+    isOpen && (
       <div className="modal-overlay" onClick={handleOverlayClick}>
         <div className="modal-content">
           <button className="modal-close" onClick={closeModal}>
@@ -50,3 +41,4 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 export default Modal;
+
